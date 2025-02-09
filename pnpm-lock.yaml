@@ -3,9 +3,11 @@ lockfileVersion: 5.4
 specifiers:
   '@langchain/community': ^0.3.29
   '@langchain/core': ^0.3.39
+  '@langchain/langgraph': ^0.2.45
   '@langchain/openai': ^0.4.3
   '@langchain/textsplitters': ^0.1.0
   '@types/bun': latest
+  chalk: ^5.4.1
   dotenv: ^16.4.5
   langchain: ^0.3.15
   pdf-parse: ^1.1.1
@@ -13,8 +15,10 @@ specifiers:
 dependencies:
   '@langchain/community': 0.3.29_3soer2zthzdsblif7pogtrjylm
   '@langchain/core': 0.3.39_openai@4.83.0
+  '@langchain/langgraph': 0.2.45_@langchain+core@0.3.39
   '@langchain/openai': 0.4.3_@langchain+core@0.3.39
   '@langchain/textsplitters': 0.1.0_@langchain+core@0.3.39
+  chalk: 5.4.1
   dotenv: 16.4.7
   langchain: 0.3.15_zmywrvgbcocwuali5yitacnbti
   pdf-parse: 1.1.1
@@ -521,6 +525,38 @@ packages:
       - openai
     dev: false
 
+  /@langchain/langgraph-checkpoint/0.0.15_@langchain+core@0.3.39:
+    resolution: {integrity: sha512-AiJkvsYHqNbCh1Tx823qs2lf2qRqeB4EAMejirOk8gkpPszAGYua5c3niKYkcKR2tU8Snhrmj7Gm9HKZSFOXyw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@langchain/core': '>=0.2.31 <0.4.0'
+    dependencies:
+      '@langchain/core': 0.3.39_openai@4.83.0
+      uuid: 10.0.0
+    dev: false
+
+  /@langchain/langgraph-sdk/0.0.37:
+    resolution: {integrity: sha512-+6aTfUQZsAQBrz2DuKyMt6SrCElJvNWm8Iw8gYZhlHFVwJHrpu0cvn5leOzWrG2gO1DDH9aR4Zi2AzJ95gT0ig==}
+    dependencies:
+      '@types/json-schema': 7.0.15
+      p-queue: 6.6.2
+      p-retry: 4.6.2
+      uuid: 9.0.1
+    dev: false
+
+  /@langchain/langgraph/0.2.45_@langchain+core@0.3.39:
+    resolution: {integrity: sha512-yemuA+aTIRLL3WBVQ5TGvFMeEJQm2zoVyjMvHWyekIvg4w7Q4cu3CYB8f+yOXwd6OaxMtnNIX0wGh4hIw/Db+A==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@langchain/core': '>=0.2.36 <0.3.0 || >=0.3.9 < 0.4.0'
+    dependencies:
+      '@langchain/core': 0.3.39_openai@4.83.0
+      '@langchain/langgraph-checkpoint': 0.0.15_@langchain+core@0.3.39
+      '@langchain/langgraph-sdk': 0.0.37
+      uuid: 10.0.0
+      zod: 3.24.1
+    dev: false
+
   /@langchain/openai/0.4.3_@langchain+core@0.3.39:
     resolution: {integrity: sha512-QPtkhzJElChagIybWTHZ0IRf2cwyjg9AhbJovYiPjOOmkwRBBEbfsA3YKr97JEKUQzKvMq/rcAZRvGvGEFGeLQ==}
     engines: {node: '>=18'}
@@ -569,6 +605,10 @@ packages:
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
     dependencies:
       '@types/ms': 2.1.0
+    dev: false
+
+  /@types/json-schema/7.0.15:
+    resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: false
 
   /@types/ms/2.1.0:
@@ -707,6 +747,11 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+    dev: false
+
+  /chalk/5.4.1:
+    resolution: {integrity: sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
     dev: false
 
   /color-convert/2.0.1:
@@ -1358,6 +1403,11 @@ packages:
 
   /uuid/10.0.0:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    hasBin: true
+    dev: false
+
+  /uuid/9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
     dev: false
 

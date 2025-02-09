@@ -9,6 +9,7 @@ import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { Annotation, StateGraph } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
+import chalk from "chalk";
 
 
 
@@ -44,10 +45,9 @@ async function main() {
     throw new Error("File must be a PDF");
   }
 
-  console.log(`Loading PDF file path: ${pdfPath}`);
-  // Your PDF processing logic will go here
+  console.log(chalk.bold.cyan(`\nLoading PDF file path: ${pdfPath}`));
   const docs = await loadPDF(pdfPath);
-  console.log(`Loaded ${basename(pdfPath)} with ${docs.length} documents`);
+  console.log(chalk.bold.cyan(`Loaded ${basename(pdfPath)} with ${docs.length} documents\n`));
 
   const llm = new ChatOpenAI({
     model: "gpt-4o-mini",
@@ -55,10 +55,9 @@ async function main() {
     apiKey: process.env.OPENAI_API_KEY,
   });
 
-
-  console.log(`Creating embeddings...`);
+  console.log(chalk.bold.magenta(`Creating embeddings...`));
   const vectorStore = await createEmbeddings(docs);
-  console.log(`Created embeddings stored in an in-memory vector store`);
+  console.log(chalk.bold.magenta(`Created embeddings stored in an in-memory vector store\n`));
 
   const promptTemplate = PromptTemplate.fromTemplate(prompt);
 
@@ -102,13 +101,13 @@ async function main() {
   const readline = Bun.stdin.stream();
   const decoder = new TextDecoder();
   
-  console.log("Ask questions about your PDF (type '/bye' to exit)");
+  console.log(chalk.bold.yellow("\n📚 Ask questions about your PDF") + chalk.dim(" (type '/bye' to exit)\n"));
   
   for await (const chunk of readline) {
     const question = decoder.decode(chunk).trim();
     
     if (question.toLowerCase() === '/bye') {
-      console.log("Goodbye!");
+      console.log(chalk.bold.green("\nGoodbye! 👋\n"));
       break;
     }
     
@@ -116,12 +115,13 @@ async function main() {
     
     const inputs = { question };
     try {
+      console.log(chalk.dim("\nThinking... 🤔"));
       const result = await graph.invoke(inputs);
-      console.log("\nAnswer:", result.answer);
+      console.log(chalk.bold.blue("\n🤖 Answer:"), chalk.white(result.answer), "\n");
     } catch (error) {
-      console.error("Error processing question:", error);
+      console.error(chalk.bold.red("\n❌ Error processing question:"), chalk.red(error), "\n");
     }
-    console.log("\nAsk another question or type '/bye' to exit");
+    console.log(chalk.yellow("Ask another question") + chalk.dim(" or type '/bye' to exit") + "\n");
   }
 }
 
